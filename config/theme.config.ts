@@ -1,6 +1,6 @@
-import { createTheme } from "@rneui/themed";
+import { createTheme } from '@rneui/themed';
 
-declare module "@rneui/themed" {
+declare module '@rneui/themed' {
   export interface Colors {
     dark: string;
   }
@@ -8,50 +8,59 @@ declare module "@rneui/themed" {
 
 const Theme = createTheme({
   lightColors: {
-    primary: "#DE8667",
-    secondary: "#EFB467",
-    dark: "#322D38",
+    primary: '#DE8667',
+    secondary: '#EFB467',
+    dark: '#322D38',
   },
   darkColors: {
-    primary: "##DE8667",
-    secondary: "#EFB467",
-    dark: "#322D38",
+    primary: '#DE8667',
+    secondary: '#EFB467',
+    dark: '#322D38',
   },
-  mode: "light",
+  mode: 'light',
 });
 
-const customStyles = {
+const customStyles: any = {
   h1: {
-    fontSize: "98px",
-    fontWeight: "light",
+    fontSize: 50,
+    fontWeight: '300',
   },
   h2: {
-    fontSize: "61px",
-    fontWeight: "light",
+    fontSize: 61,
+    fontWeight: '300',
   },
   h3: {
-    fontSize: "49px",
-    fontWeight: "regular",
+    fontSize: 49,
+    fontWeight: '400',
   },
   h4: {
-    fontSize: "35px",
-    fontWeight: "regular",
+    fontSize: 35,
+    fontWeight: '400',
   },
   h5: {
-    fontSize: "16px",
-    fontWeight: "regular",
+    fontSize: 16,
+    fontWeight: '400',
   },
   caption: {
-    fontSize: "12px",
-    fontWeight: "normal",
+    fontSize: 12,
+    fontWeight: '400',
   },
   body: {
-    fontSize: "16px",
-    fontWeight: "regular",
+    fontSize: 16,
+    fontWeight: '400',
   },
   bodyBold: {
-    fontSize: "16px",
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  filledButton: {
+    borderRadius: 32,
+    backgroundColor: Theme.lightColors.primary,
+    padding: 10,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
   },
 };
 
