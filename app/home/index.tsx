@@ -6,14 +6,30 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import LoggedInProps from '../../common/functions';
+import LoggedInProps from '../../common/interface';
 import { Theme, customStyles } from '../../config/theme.config';
 import MostLikedQuotes from '../../components/home_page/mostLikedQuotes';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function HomeScreen({
-  isLoggedIn,
-  setIsLoggedIn,
-}: LoggedInProps) {
+export default function HomeScreen() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('user')
+      .then((user) => {
+        if (user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking user:', error);
+        setIsLoggedIn(false);
+      });
+  }, []);
+
   if (isLoggedIn) {
     return (
       <View>
@@ -49,10 +65,7 @@ export default function HomeScreen({
           Explore the{'\n'} world of {'\n'}fantastic quotes
         </Text>
 
-        <MostLikedQuotes
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+        <MostLikedQuotes />
       </View>
     </ScrollView>
   );

@@ -42,7 +42,7 @@ const customStyles: any = {
     fontWeight: '400',
   },
   caption: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '400',
   },
   body: {

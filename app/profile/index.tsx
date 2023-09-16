@@ -1,10 +1,7 @@
-import { View, Text } from "react-native";
-import LoggedInProps from "../../common/functions";
+import { View, Text } from 'react-native';
+import LoggedInProps from '../../common/interface';
 
-export default function ProfileScreen({
-  isLoggedIn,
-  setIsLoggedIn,
-}: LoggedInProps) {
+export default function ProfileScreen() {
   return (
     <View>
       <Text>Profile</Text>

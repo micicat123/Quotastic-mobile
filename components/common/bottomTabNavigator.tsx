@@ -6,15 +6,12 @@ import SettingsScreen from '../../app/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
 import { View, Text } from 'react-native';
-import LoggedInProps from '../../common/functions';
+import LoggedInProps from '../../common/interface';
 import Header from './header';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator: React.FC<LoggedInProps> = ({
-  isLoggedIn,
-  setIsLoggedIn,
-}) => {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -48,14 +45,10 @@ const BottomTabNavigator: React.FC<LoggedInProps> = ({
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Home</Text> : <Text></Text>;
           },
-          header: () => (
-            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-          ),
+          header: () => <Header />,
         }}
       >
-        {() => (
-          <HomeScreen isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        )}
+        {() => <HomeScreen />}
       </Tab.Screen>
       <Tab.Screen
         name='Profile'
@@ -65,12 +58,7 @@ const BottomTabNavigator: React.FC<LoggedInProps> = ({
           },
         }}
       >
-        {() => (
-          <ProfileScreen
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-          />
-        )}
+        {() => <ProfileScreen />}
       </Tab.Screen>
       <Tab.Screen
         name='Settings'
@@ -80,12 +68,7 @@ const BottomTabNavigator: React.FC<LoggedInProps> = ({
           },
         }}
       >
-        {() => (
-          <SettingsScreen
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-          />
-        )}
+        {() => <SettingsScreen />}
       </Tab.Screen>
     </Tab.Navigator>
   );

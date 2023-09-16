@@ -5,12 +5,31 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import LoggedInProps from '../../common/functions';
+import LoggedInProps from '../../common/interface';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 
-const Header: React.FC<LoggedInProps> = ({ isLoggedIn, setIsLoggedIn }) => {
-  if (!isLoggedIn) {
+const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('user')
+      .then((user) => {
+        if (user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking user:', error);
+        setIsLoggedIn(false);
+      });
+  }, []);
+
+  if (isLoggedIn) {
     return (
       <SafeAreaView>
         <View style={styles.container}>
@@ -31,7 +50,7 @@ const Header: React.FC<LoggedInProps> = ({ isLoggedIn, setIsLoggedIn }) => {
           style={styles.logo}
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => setIsLoggedIn(false)}>
+          <TouchableOpacity onPress={() => console.log('pressed')}>
             <Icon
               name={'add-circle-outline'}
               size={40}
