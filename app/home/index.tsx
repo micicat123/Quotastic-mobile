@@ -6,11 +6,11 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import LoggedInProps from '../../common/interface';
 import { Theme, customStyles } from '../../config/theme.config';
 import MostLikedQuotes from '../../components/home_page/mostLikedQuotes';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,9 +50,12 @@ export default function HomeScreen() {
             quotes, and proverbs. Sign up and express yourself.
           </Text>
           <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
-            <Text style={[customStyles.buttonText, customStyles.body]}>
-              Sign up
-            </Text>
+            <Link
+              href='/register'
+              style={[customStyles.buttonText, customStyles.body]}
+            >
+              <Text>Sign up</Text>
+            </Link>
           </TouchableOpacity>
         </View>
 

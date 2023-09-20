@@ -62,6 +62,18 @@ const customStyles: any = {
     color: 'white',
     textAlign: 'center',
   },
+  customInput: {
+    borderColor: Theme.lightColors.primary,
+    borderWidth: 2,
+    borderRadius: 32,
+    paddingHorizontal: 15,
+  },
+  customLabel: {
+    color: Theme.lightColors.dark,
+    paddingHorizontal: 10,
+    fontWeight: 'regular',
+    marginBottom: 8,
+  },
 };
 
 export { Theme, customStyles };

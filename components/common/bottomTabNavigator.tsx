@@ -6,7 +6,6 @@ import SettingsScreen from '../../app/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
 import { View, Text } from 'react-native';
-import LoggedInProps from '../../common/interface';
 import Header from './header';
 
 const Tab = createBottomTabNavigator();

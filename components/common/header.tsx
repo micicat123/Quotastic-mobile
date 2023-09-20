@@ -40,27 +40,27 @@ const Header = () => {
         </View>
       </SafeAreaView>
     );
-  }
-
-  return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/images/logo.png')}
-          style={styles.logo}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => console.log('pressed')}>
-            <Icon
-              name={'add-circle-outline'}
-              size={40}
-              color={Theme.lightColors.primary}
-            />
-          </TouchableOpacity>
+  } else {
+    return (
+      <SafeAreaView>
+        <View style={styles.container}>
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={() => console.log('pressed')}>
+              <Icon
+                name={'add-circle-outline'}
+                size={40}
+                color={Theme.lightColors.primary}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

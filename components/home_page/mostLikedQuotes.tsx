@@ -46,7 +46,6 @@ const MostLikedQuotes = () => {
     }
   };
 
-  console.log(userVotes);
   return (
     <View>
       <Text
