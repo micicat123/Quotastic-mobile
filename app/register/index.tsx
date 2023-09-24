@@ -3,26 +3,21 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Theme, customStyles } from '../../config/theme.config';
-import { object, string } from 'yup';
 import ImageSelect from '../../components/common/imagePicker';
 import Header from '../../components/common/header';
+import { LoginRegisterStore } from '../../api/user/login_register';
+import { router } from 'expo-router';
+import { registerSchema, registerValues } from '../../assets/schemas/register';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-
   const [file, setFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  let registerSchema = object({
-    firstName: string().required(),
-    lastName: string().required(),
-    email: string().email().required(),
-    password: string().required(),
-    passwordConfirm: string().required(),
-  });
+  const mimeType = {
+    jpg: 'image/jpeg',
+    peg: 'image/jpeg',
+    png: 'image/png',
+  };
 
   return (
     <>
@@ -54,24 +49,76 @@ export default function LoginScreen() {
                 password: '',
                 passwordConfirm: '',
               }}
-              onSubmit={(values) => console.log(values)}
+              validationSchema={registerSchema}
+              onSubmit={async (values: registerValues) => {
+                const loginRegisterStore = new LoginRegisterStore();
+                try {
+                  await loginRegisterStore.register(
+                    values.email,
+                    values.firstName,
+                    values.lastName,
+                    values.password,
+                    values.passwordConfirm
+                  );
+
+                  //upload image
+                  if (file) {
+                    const formData: any = new FormData();
+                    const fileExtension = file.slice(-3).toLowerCase();
+                    const fileType =
+                      mimeType[fileExtension] || 'application/octet-stream';
+                    formData.append('image', {
+                      uri: file,
+                      type: fileType,
+                      name: 'image.jpg',
+                    });
+
+                    await loginRegisterStore.postUserPicture(
+                      formData,
+                      values.email
+                    );
+                  }
+
+                  router.replace('/login');
+                } catch (error) {
+                  if (error.response.data.message) {
+                    setErrorMessage(error.response.data.message);
+                  } else {
+                    console.log(error);
+                  }
+                }
+              }}
             >
-              {({ handleChange, handleBlur, handleSubmit, values }) => (
+              {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                errors,
+                touched,
+              }) => (
                 <View>
                   <ImageSelect image={file} setImage={setFile} />
 
                   <Input
                     label='Email'
-                    onChangeText={(value) => setEmail(value)}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
                     keyboardType='email-address'
                     autoCapitalize='none'
-                    autoCorrect={false}
-                    value={values.email}
                     style={customStyles.customInput}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                     }}
                     labelStyle={customStyles.customLabel}
+                    errorMessage={
+                      errors.email && touched.email
+                        ? errors.email
+                        : !errors.email && errorMessage
+                        ? errorMessage
+                        : null
+                    }
                   />
 
                   <View
@@ -83,48 +130,85 @@ export default function LoginScreen() {
                     <View style={{ width: '50%' }}>
                       <Input
                         label='First Name'
-                        onChangeText={(value) => setFirstName(value)}
+                        value={values.firstName}
+                        onChangeText={handleChange('firstName')}
+                        onBlur={handleBlur('firstName')}
+                        autoCapitalize='words'
                         style={customStyles.customInput}
                         inputContainerStyle={{
                           borderBottomWidth: 0,
                         }}
                         labelStyle={customStyles.customLabel}
+                        errorMessage={
+                          errors.firstName && touched.firstName
+                            ? errors.firstName
+                            : null
+                        }
                       />
                     </View>
                     <View style={{ width: '50%' }}>
                       <Input
                         label='Last Name'
-                        onChangeText={(value) => setLastName(value)}
+                        value={values.lastName}
+                        onChangeText={handleChange('lastName')}
+                        onBlur={handleBlur('lastName')}
+                        autoCapitalize='words'
                         style={customStyles.customInput}
                         inputContainerStyle={{
                           borderBottomWidth: 0,
                         }}
                         labelStyle={customStyles.customLabel}
+                        errorMessage={
+                          errors.lastName && touched.lastName
+                            ? errors.lastName
+                            : null
+                        }
                       />
                     </View>
                   </View>
 
                   <Input
                     label='Password'
-                    onChangeText={(value) => setPassword(value)}
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
                     secureTextEntry={true}
+                    autoCapitalize='none'
                     style={customStyles.customInput}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                     }}
                     labelStyle={customStyles.customLabel}
+                    errorMessage={
+                      errors.password && touched.password
+                        ? errors.password
+                        : null
+                    }
                   />
                   <Input
                     label='Password Confirm'
-                    onChangeText={(value) => setPasswordConfirm(value)}
+                    value={values.passwordConfirm}
+                    onChangeText={handleChange('passwordConfirm')}
+                    onBlur={handleBlur('passwordConfirm')}
                     secureTextEntry={true}
+                    autoCapitalize='none'
                     style={customStyles.customInput}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                     }}
                     labelStyle={customStyles.customLabel}
+                    errorMessage={
+                      errors.passwordConfirm && touched.passwordConfirm
+                        ? errors.passwordConfirm
+                        : null
+                    }
                   />
-                  <TouchableOpacity style={customStyles.filledButton}>
+                  <TouchableOpacity
+                    style={customStyles.filledButton}
+                    onPress={() => {
+                      handleSubmit();
+                    }}
+                  >
                     <Text style={[customStyles.buttonText, customStyles.body]}>
                       Sign up
                     </Text>

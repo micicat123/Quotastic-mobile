@@ -14,7 +14,7 @@ export default function ImageSelect({ image, setImage }) {
 
     console.log(result);
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
   };
@@ -38,13 +38,20 @@ export default function ImageSelect({ image, setImage }) {
           </TouchableOpacity>
         </View>
       ) : (
-        <TouchableOpacity onPress={pickImage}>
-          <Image
-            source={require('../../assets/images/unset-profile.png')}
-            style={{ width: '100%', resizeMode: 'contain', marginBottom: 16 }}
-            alt='Default image'
-          />
-        </TouchableOpacity>
+        <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
+          <TouchableOpacity onPress={pickImage}>
+            <Image
+              source={require('../../assets/images/unset-profile.png')}
+              style={{
+                width: 64,
+                height: 64,
+                resizeMode: 'cover',
+                marginBottom: 16,
+              }}
+              alt='Upload image'
+            />
+          </TouchableOpacity>
+        </View>
       )}
     </View>
   );
