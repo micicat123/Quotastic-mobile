@@ -16,18 +16,33 @@ export default function HomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem('user')
-      .then((user) => {
+    const fetchAsyncStorageValues = async () => {
+      try {
+        const jwt = await AsyncStorage.getItem('jwt');
+        const firstName = await AsyncStorage.getItem('firstName');
+        const lastName = await AsyncStorage.getItem('lastName');
+        const email = await AsyncStorage.getItem('email');
+        const userId = await AsyncStorage.getItem('userId');
+
+        console.log('jwt:', jwt);
+        console.log('firstName:', firstName);
+        console.log('lastName:', lastName);
+        console.log('email:', email);
+        console.log('userId:', userId);
+
+        const user = await AsyncStorage.getItem('user');
         if (user) {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
         }
-      })
-      .catch((error) => {
-        console.error('Error checking user:', error);
+      } catch (error) {
+        console.error('Error reading AsyncStorage:', error);
         setIsLoggedIn(false);
-      });
+      }
+    };
+
+    fetchAsyncStorageValues();
   }, []);
 
   if (isLoggedIn) {
@@ -51,7 +66,7 @@ export default function HomeScreen() {
           </Text>
           <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
             <Link
-              href='/register'
+              href='/login'
               style={[customStyles.buttonText, customStyles.body]}
             >
               <Text>Sign up</Text>

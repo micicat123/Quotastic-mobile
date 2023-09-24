@@ -24,34 +24,42 @@ const customStyles: any = {
   h1: {
     fontSize: 50,
     fontWeight: '300',
+    color: Theme.lightColors.dark,
   },
   h2: {
     fontSize: 61,
     fontWeight: '300',
+    color: Theme.lightColors.dark,
   },
   h3: {
     fontSize: 49,
     fontWeight: '400',
+    color: Theme.lightColors.dark,
   },
   h4: {
     fontSize: 35,
     fontWeight: '400',
+    color: Theme.lightColors.dark,
   },
   h5: {
     fontSize: 16,
     fontWeight: '400',
+    color: Theme.lightColors.dark,
   },
   caption: {
     fontSize: 14,
     fontWeight: '400',
+    color: Theme.lightColors.dark,
   },
   body: {
     fontSize: 16,
     fontWeight: '400',
+    color: Theme.lightColors.dark,
   },
   bodyBold: {
     fontSize: 16,
     fontWeight: '700',
+    color: Theme.lightColors.dark,
   },
   filledButton: {
     borderRadius: 32,

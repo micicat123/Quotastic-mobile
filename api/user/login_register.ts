@@ -15,6 +15,10 @@ export class LoginRegisterStore {
   postUserPicture = (formData: any, email: string) => {
     return postUserPicture(formData, email);
   };
+
+  login = (email: string, password: string) => {
+    return login(email, password);
+  };
 }
 
 const register = async (
@@ -42,19 +46,14 @@ const postUserPicture = async (formData: any, email: string) => {
       },
     });
   } catch (error) {
-    if (error.response) {
-      // The request was made, but the server responded with an error status code
-      console.error(
-        'Server Error:',
-        error.response.status,
-        error.response.data
-      );
-    } else if (error.request) {
-      // The request was made, but no response was received
-      console.error('No Response from Server');
-    } else {
-      // Something happened in setting up the request that triggered an error
-      console.error('Request Error:', error.message);
-    }
+    console.log(error);
   }
+};
+
+const login = async (email: string, password: string) => {
+  const response = await customAxios.post('/auth/login', {
+    email,
+    password,
+  });
+  return response;
 };
