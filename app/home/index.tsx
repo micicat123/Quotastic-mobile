@@ -18,20 +18,8 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchAsyncStorageValues = async () => {
       try {
-        const jwt = await AsyncStorage.getItem('jwt');
-        const firstName = await AsyncStorage.getItem('firstName');
-        const lastName = await AsyncStorage.getItem('lastName');
-        const email = await AsyncStorage.getItem('email');
         const userId = await AsyncStorage.getItem('userId');
-
-        console.log('jwt:', jwt);
-        console.log('firstName:', firstName);
-        console.log('lastName:', lastName);
-        console.log('email:', email);
-        console.log('userId:', userId);
-
-        const user = await AsyncStorage.getItem('user');
-        if (user) {
+        if (userId) {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
