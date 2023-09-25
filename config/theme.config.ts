@@ -68,6 +68,8 @@ const customStyles: any = {
   },
   buttonText: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
     textAlign: 'center',
   },
   customInput: {

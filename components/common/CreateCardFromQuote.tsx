@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { customStyles } from '../config/theme.config';
+import { customStyles } from '../../config/theme.config';
 
 const CreateCardFromQuote = ({ quote, image }) => (
   <View style={styles.card}>
@@ -20,7 +20,15 @@ const CreateCardFromQuote = ({ quote, image }) => (
         {quote.quote}
       </Text>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Image source={{ uri: image }} style={{ width: 35, height: 35 }} />
+        <Image
+          source={{ uri: image }}
+          style={{
+            width: 35,
+            height: 35,
+            borderRadius: 50,
+            resizeMode: 'cover',
+          }}
+        />
         <Text style={customStyles.caption}>
           {quote.user.first_name} {quote.user.last_name}
         </Text>

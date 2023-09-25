@@ -1,11 +1,18 @@
-import { AxiosResponse } from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import customAxios from '../../config/axios.config';
-import { Quote } from '../../models/quote';
 
 export class GetQuotesStore {
   mostLikedQuotes = (page: number) => {
     try {
       return mostLikedQuotes(page);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  randomQuote = () => {
+    try {
+      return randomQuote();
     } catch (e) {
       return null;
     }
@@ -18,5 +25,18 @@ const mostLikedQuotes = async (page: number): Promise<any> => {
     return response;
   } catch (error) {
     throw error;
+  }
+};
+
+const randomQuote = async () => {
+  const token = await AsyncStorage.getItem('jwt');
+  if (token) {
+    return await customAxios.get(`/quote/random`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    return null;
   }
 };

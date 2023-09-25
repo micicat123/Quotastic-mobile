@@ -209,9 +209,7 @@ export default function LoginScreen() {
                       handleSubmit();
                     }}
                   >
-                    <Text style={[customStyles.buttonText, customStyles.body]}>
-                      Sign up
-                    </Text>
+                    <Text style={[customStyles.buttonText]}>Sign up</Text>
                   </TouchableOpacity>
                 </View>
               )}

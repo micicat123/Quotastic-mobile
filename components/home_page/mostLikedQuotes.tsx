@@ -3,7 +3,7 @@ import LoggedInProps from '../../common/interface';
 import { useEffect, useState } from 'react';
 import { Quote } from '../../models/quote';
 import { GetQuotesStore } from '../../api/quotes/get_quotes';
-import CreateCardFromQuote from '../../common/component';
+import CreateCardFromQuote from '../common/CreateCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 
@@ -84,9 +84,7 @@ const MostLikedQuotes = () => {
         }}
       >
         <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
-          <Text style={[customStyles.buttonText, customStyles.body]}>
-            Load more
-          </Text>
+          <Text style={[customStyles.buttonText]}>Load more</Text>
         </TouchableOpacity>
       </View>
     </View>

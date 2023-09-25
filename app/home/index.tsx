@@ -11,6 +11,7 @@ import MostLikedQuotes from '../../components/home_page/mostLikedQuotes';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link } from 'expo-router';
+import RandomQuote from '../../components/home_page/randomQuote';
 
 export default function HomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,9 +36,12 @@ export default function HomeScreen() {
 
   if (isLoggedIn) {
     return (
-      <View>
-        <Text>Logged in</Text>
-      </View>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={{ marginLeft: 30, marginRight: 30 }}>
+          <RandomQuote />
+          <MostLikedQuotes />
+        </View>
+      </ScrollView>
     );
   }
   return (
@@ -53,10 +57,7 @@ export default function HomeScreen() {
             quotes, and proverbs. Sign up and express yourself.
           </Text>
           <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
-            <Link
-              href='/login'
-              style={[customStyles.buttonText, customStyles.body]}
-            >
+            <Link href='/login' style={[customStyles.buttonText]}>
               <Text>Sign up</Text>
             </Link>
           </TouchableOpacity>
