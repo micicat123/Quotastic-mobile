@@ -1,41 +1,96 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { customStyles } from '../../config/theme.config';
+import { Theme, customStyles } from '../../config/theme.config';
+import { UpvoteDownvote } from '../../common/functions/voting';
+import { useEffect, useState } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 
-const CreateCardFromQuote = ({ quote, image }) => (
-  <View style={styles.card}>
-    <View
-      style={{
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Icon name={'chevron-up'} size={25} />
-      <Text style={customStyles.body}>{quote.upvotes}</Text>
-      <Icon name={'chevron-down'} size={25} />
-    </View>
-    <View style={{ justifyContent: 'space-between' }}>
-      <Text style={[customStyles.h5, { paddingRight: 50, paddingBottom: 21 }]}>
-        {quote.quote}
-      </Text>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 35,
-            height: 35,
-            borderRadius: 50,
-            resizeMode: 'cover',
+const CreateCardFromQuote = ({
+  quote,
+  image,
+  vote,
+  quotes,
+  setQuotes,
+  userVotes,
+  setUserVotes,
+}) => {
+  const [stateVote, setStateVote] = useState(vote);
+
+  useEffect(() => {
+    setStateVote(vote);
+  }, [vote]);
+
+  return (
+    <View style={styles.card}>
+      <View
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Icon
+          name={'chevron-up'}
+          size={25}
+          color={stateVote === 2 ? Theme.lightColors.primary : null}
+          onPress={() => {
+            UpvoteDownvote(
+              quote.quote_id,
+              true,
+              quote.user.user_id,
+              quote.upvotes,
+              quotes,
+              setQuotes,
+              userVotes,
+              setUserVotes
+            );
+            setStateVote(stateVote === 2 ? 1 : 2);
           }}
         />
-        <Text style={customStyles.caption}>
-          {quote.user.first_name} {quote.user.last_name}
+        <Text style={customStyles.body}>{quote.upvotes}</Text>
+        <Icon
+          name={'chevron-down'}
+          size={25}
+          color={stateVote === 0 ? Theme.lightColors.primary : null}
+          onPress={() => {
+            UpvoteDownvote(
+              quote.quote_id,
+              false,
+              quote.user.user_id,
+              quote.upvotes,
+              quotes,
+              setQuotes,
+              userVotes,
+              setUserVotes
+            );
+            setStateVote(stateVote === 0 ? 1 : 0);
+          }}
+        />
+      </View>
+      <View style={{ justifyContent: 'space-between' }}>
+        <Text
+          style={[customStyles.h5, { paddingRight: 50, paddingBottom: 21 }]}
+        >
+          {quote.quote}
         </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <Image
+            source={{ uri: image }}
+            style={{
+              width: 35,
+              height: 35,
+              borderRadius: 50,
+              resizeMode: 'cover',
+            }}
+          />
+          <Text style={customStyles.caption}>
+            {quote.user.first_name} {quote.user.last_name}
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   card: {

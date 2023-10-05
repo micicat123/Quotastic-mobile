@@ -42,12 +42,17 @@ const getUserPicture = async (id: number) => {
 
 const getUserVotes = async () => {
   const token = await AsyncStorage.getItem('jwt');
+  const userId = await AsyncStorage.getItem('userId');
+
   if (token) {
-    const response = await customAxios.get('/quote/user-decisions', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await customAxios.get(
+      `/quote/user-decisions/${Number(userId)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } else {
     return null;

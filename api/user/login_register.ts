@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import customAxios from '../../config/axios.config';
 
 export class LoginRegisterStore {

@@ -10,6 +10,14 @@ export class GetQuotesStore {
     }
   };
 
+  mostRecentQuotes = (page: number) => {
+    try {
+      return mostRecentQuotes(page);
+    } catch (e) {
+      return null;
+    }
+  };
+
   randomQuote = () => {
     try {
       return randomQuote();
@@ -25,6 +33,19 @@ const mostLikedQuotes = async (page: number): Promise<any> => {
     return response;
   } catch (error) {
     throw error;
+  }
+};
+
+const mostRecentQuotes = async (page: number) => {
+  const token = await AsyncStorage.getItem('jwt');
+  if (token) {
+    return await customAxios.get(`/quote/most-recent/${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } else {
+    return null;
   }
 };
 

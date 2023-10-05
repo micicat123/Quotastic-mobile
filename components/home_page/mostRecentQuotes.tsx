@@ -6,29 +6,25 @@ import CreateCardFromQuote from '../common/CreateCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 import { getVote, getVotes } from '../../common/functions/voting';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { checkForUser } from '../../common/functions/user';
 
-const MostLikedQuotes = () => {
+const MostRecentQuotes = () => {
   const [quotes, setQuotes] = useState<Set<Quote>>(new Set());
   const [userPictures, setUserPictures] = useState({});
   const [userVotes, setUserVotes] = useState([]);
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const getQuotesStore = new GetQuotesStore();
   const getUserStore = new GetUserStore();
 
   useEffect(() => {
     fetchQuotes();
     getVotes(setUserVotes);
-    checkForUser(setIsLoggedIn);
   }, []);
 
   const fetchQuotes = async () => {
     try {
       //get quotes
-      const fetchedQuotes: any = await getQuotesStore.mostLikedQuotes(page);
+      const fetchedQuotes: any = await getQuotesStore.mostRecentQuotes(page);
       const newQuotesArray: Quote[] = [...quotes, ...fetchedQuotes.data.data];
       const newQuotesSet = new Set<Quote>(newQuotesArray);
       setQuotes(newQuotesSet);
@@ -61,7 +57,7 @@ const MostLikedQuotes = () => {
             color: Theme.lightColors.primary,
           }}
         >
-          Most liked quotes
+          Most recent quotes
         </Text>
         <Text
           style={[
@@ -69,8 +65,8 @@ const MostLikedQuotes = () => {
             { textAlign: 'center', marginTop: 16, marginBottom: 30 },
           ]}
         >
-          Most liked quotes on the platform. Sign up or login to like the quotes
-          and keep them saved in your profile
+          Recent quotes updates as soon user adds new quote. Go ahed show them
+          that you seen the new quote and like the ones you like.
         </Text>
         {[...quotes].map((quote: Quote, index) => {
           const vote = getVote(quote.quote_id, userVotes);
@@ -96,17 +92,7 @@ const MostLikedQuotes = () => {
             marginBottom: 35,
           }}
         >
-          {!isLoggedIn ? (
-            <TouchableOpacity
-              style={[customStyles.filledButton, { width: 165 }]}
-              onPress={() => {
-                setPage(page + 1);
-                fetchQuotes();
-              }}
-            >
-              <Text style={[customStyles.buttonText]}>Sign up to see more</Text>
-            </TouchableOpacity>
-          ) : !isLastPage ? (
+          {!isLastPage ? (
             <TouchableOpacity
               style={[customStyles.filledButton, { width: 137 }]}
               onPress={() => {
@@ -123,4 +109,4 @@ const MostLikedQuotes = () => {
   }
 };
 
-export default MostLikedQuotes;
+export default MostRecentQuotes;

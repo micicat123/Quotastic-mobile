@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link } from 'expo-router';
 import RandomQuote from '../../components/home_page/randomQuote';
+import MostRecentQuotes from '../../components/home_page/mostRecentQuotes';
 
 export default function HomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +41,7 @@ export default function HomeScreen() {
         <View style={{ marginLeft: 30, marginRight: 30 }}>
           <RandomQuote />
           <MostLikedQuotes />
+          <MostRecentQuotes />
         </View>
       </ScrollView>
     );

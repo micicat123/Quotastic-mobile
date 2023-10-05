@@ -6,34 +6,35 @@ import CreateCardFromQuote from '../common/CreateCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getVote, getVotes } from '../../common/functions/voting';
 
 const RandomQuote = () => {
-  const [quote, setQuote] = useState<Quote>();
+  const [quotes, setQuotes] = useState<Set<Quote>>(new Set());
   const [picture, setPicture] = useState<any>();
   const [userVotes, setUserVotes] = useState([]);
+  const [vote, setVote] = useState(1);
   const getQuotesStore = new GetQuotesStore();
   const getUserStore = new GetUserStore();
 
   useEffect(() => {
-    fetchQuotes();
+    fetchQuote();
+    getVotes(setUserVotes);
   }, []);
 
-  const fetchQuotes = async () => {
+  const fetchQuote = async () => {
     try {
-      //get quotes
       const fetchedQuote: any = await getQuotesStore.randomQuote();
-      setQuote(fetchedQuote.data);
-
-      //get pictures
+      const newQuotesSet = new Set([...quotes]);
+      newQuotesSet.add(fetchedQuote.data);
+      setQuotes(newQuotesSet);
 
       const picture = await getUserStore.getUserPicture(
         fetchedQuote.data.user.user_id
       );
       setPicture(picture);
 
-      //get user votes
-      /*  const userVotes = await getUserStore.getUserVotes();
-      setUserVotes(userVotes);*/
+      const vote = getVote(fetchedQuote.data.quote_id, userVotes);
+      setVote(vote);
     } catch (err) {
       console.error(err);
     }
@@ -47,31 +48,49 @@ const RandomQuote = () => {
     await AsyncStorage.removeItem('email');
   };
 
-  return (
-    <View>
-      <Text
-        style={{
-          marginTop: 30,
-          fontSize: 27.5,
-          fontWeight: '400',
-          textAlign: 'center',
-          color: Theme.lightColors.primary,
-        }}
-      >
-        Quote of the day
-      </Text>
-      <Text
-        style={[
-          customStyles.body,
-          { textAlign: 'center', marginTop: 16, marginBottom: 30 },
-        ]}
-      >
-        Quote of the day is randomly choosen quote.
-      </Text>
+  if (quotes.size < 1) {
+    return <></>;
+  } else {
+    return (
+      <View>
+        <Text
+          style={{
+            marginTop: 30,
+            fontSize: 27.5,
+            fontWeight: '400',
+            textAlign: 'center',
+            color: Theme.lightColors.primary,
+          }}
+        >
+          Quote of the day
+        </Text>
+        <Text
+          style={[
+            customStyles.body,
+            { textAlign: 'center', marginTop: 16, marginBottom: 30 },
+          ]}
+        >
+          Quote of the day is randomly choosen quote.
+        </Text>
 
-      <CreateCardFromQuote quote={quote} image={picture} />
-    </View>
-  );
+        <CreateCardFromQuote
+          quote={[...quotes][0]}
+          image={picture}
+          vote={vote}
+          quotes={quotes}
+          setQuotes={setQuotes}
+          userVotes={userVotes}
+          setUserVotes={setUserVotes}
+        />
+        <TouchableOpacity
+          style={[customStyles.filledButton, { width: 137 }]}
+          onPress={logout}
+        >
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 };
 
 export default RandomQuote;

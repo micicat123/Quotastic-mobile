@@ -15,7 +15,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem('user')
+    AsyncStorage.getItem('userId')
       .then((user) => {
         if (user) {
           setIsLoggedIn(true);
