@@ -74,6 +74,7 @@ const RandomQuote = () => {
         </Text>
 
         <CreateCardFromQuote
+          isLoggedIn={true}
           quote={[...quotes][0]}
           image={picture}
           vote={vote}

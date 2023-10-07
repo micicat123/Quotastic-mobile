@@ -13,6 +13,7 @@ const CreateCardFromQuote = ({
   setQuotes,
   userVotes,
   setUserVotes,
+  isLoggedIn,
 }) => {
   const [stateVote, setStateVote] = useState(vote);
 
@@ -34,17 +35,19 @@ const CreateCardFromQuote = ({
           size={25}
           color={stateVote === 2 ? Theme.lightColors.primary : null}
           onPress={() => {
-            UpvoteDownvote(
-              quote.quote_id,
-              true,
-              quote.user.user_id,
-              quote.upvotes,
-              quotes,
-              setQuotes,
-              userVotes,
-              setUserVotes
-            );
-            setStateVote(stateVote === 2 ? 1 : 2);
+            if (isLoggedIn) {
+              UpvoteDownvote(
+                quote.quote_id,
+                true,
+                quote.user.user_id,
+                quote.upvotes,
+                quotes,
+                setQuotes,
+                userVotes,
+                setUserVotes
+              );
+              setStateVote(stateVote === 2 ? 1 : 2);
+            }
           }}
         />
         <Text style={customStyles.body}>{quote.upvotes}</Text>
@@ -53,17 +56,19 @@ const CreateCardFromQuote = ({
           size={25}
           color={stateVote === 0 ? Theme.lightColors.primary : null}
           onPress={() => {
-            UpvoteDownvote(
-              quote.quote_id,
-              false,
-              quote.user.user_id,
-              quote.upvotes,
-              quotes,
-              setQuotes,
-              userVotes,
-              setUserVotes
-            );
-            setStateVote(stateVote === 0 ? 1 : 0);
+            if (isLoggedIn) {
+              UpvoteDownvote(
+                quote.quote_id,
+                false,
+                quote.user.user_id,
+                quote.upvotes,
+                quotes,
+                setQuotes,
+                userVotes,
+                setUserVotes
+              );
+              setStateVote(stateVote === 0 ? 1 : 0);
+            }
           }}
         />
       </View>

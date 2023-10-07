@@ -73,6 +73,7 @@ const MostRecentQuotes = () => {
           return (
             <View key={index}>
               <CreateCardFromQuote
+                isLoggedIn={true}
                 quote={quote}
                 image={userPictures[quote.user.user_id]}
                 vote={vote}

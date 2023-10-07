@@ -20,10 +20,13 @@ const MostLikedQuotes = () => {
   const getUserStore = new GetUserStore();
 
   useEffect(() => {
-    fetchQuotes();
     getVotes(setUserVotes);
     checkForUser(setIsLoggedIn);
   }, []);
+
+  useEffect(() => {
+    fetchQuotes();
+  }, [page]);
 
   const fetchQuotes = async () => {
     try {
@@ -77,6 +80,7 @@ const MostLikedQuotes = () => {
           return (
             <View key={index}>
               <CreateCardFromQuote
+                isLoggedIn={isLoggedIn}
                 quote={quote}
                 image={userPictures[quote.user.user_id]}
                 vote={vote}
