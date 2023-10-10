@@ -6,25 +6,34 @@ import CreateCardFromQuote from '../common/CreateCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 import { getVote, getVotes } from '../../common/functions/voting';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { checkForUser } from '../../common/functions/user';
 
-const MostRecentQuotes = () => {
+const UsersMostLikedQuotes = ({ userId }) => {
   const [quotes, setQuotes] = useState<Set<Quote>>(new Set());
   const [userPictures, setUserPictures] = useState({});
   const [userVotes, setUserVotes] = useState([]);
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const getQuotesStore = new GetQuotesStore();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const getUserStore = new GetUserStore();
 
   useEffect(() => {
-    fetchQuotes();
     getVotes(setUserVotes);
+    checkForUser(setIsLoggedIn);
   }, []);
+
+  useEffect(() => {
+    fetchQuotes();
+  }, [page]);
 
   const fetchQuotes = async () => {
     try {
       //get quotes
-      const fetchedQuotes: any = await getQuotesStore.mostRecentQuotes(page);
+      const fetchedQuotes: any = await getUserStore.getUserMostLikedQuotes(
+        page,
+        userId
+      );
       const newQuotesArray: Quote[] = [...quotes, ...fetchedQuotes.data.data];
       const newQuotesSet = new Set<Quote>(newQuotesArray);
       setQuotes(newQuotesSet);
@@ -53,27 +62,18 @@ const MostRecentQuotes = () => {
             marginTop: 64,
             fontSize: 27.5,
             fontWeight: '400',
-            textAlign: 'center',
             color: Theme.lightColors.primary,
+            marginBottom: 25,
           }}
         >
-          Most recent quotes
-        </Text>
-        <Text
-          style={[
-            customStyles.body,
-            { textAlign: 'center', marginTop: 16, marginBottom: 30 },
-          ]}
-        >
-          Recent quotes updates as soon user adds new quote. Go ahed show them
-          that you seen the new quote and like the ones you like.
+          Most liked quotes
         </Text>
         {[...quotes].map((quote: Quote, index) => {
           const vote = getVote(quote.quote_id, userVotes);
           return (
             <View key={index}>
               <CreateCardFromQuote
-                isLoggedIn={true}
+                isLoggedIn={isLoggedIn}
                 quote={quote}
                 image={userPictures[quote.user.user_id]}
                 vote={vote}
@@ -93,7 +93,17 @@ const MostRecentQuotes = () => {
             marginBottom: 35,
           }}
         >
-          {!isLastPage ? (
+          {!isLoggedIn ? (
+            <TouchableOpacity
+              style={[customStyles.filledButton, { width: 165 }]}
+              onPress={() => {
+                setPage(page + 1);
+                fetchQuotes();
+              }}
+            >
+              <Text style={[customStyles.buttonText]}>Sign up to see more</Text>
+            </TouchableOpacity>
+          ) : !isLastPage ? (
             <TouchableOpacity
               style={[customStyles.filledButton, { width: 137 }]}
               onPress={() => {
@@ -110,4 +120,4 @@ const MostRecentQuotes = () => {
   }
 };
 
-export default MostRecentQuotes;
+export default UsersMostLikedQuotes;

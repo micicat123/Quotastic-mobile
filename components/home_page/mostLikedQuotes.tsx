@@ -50,7 +50,7 @@ const MostLikedQuotes = () => {
     }
   };
 
-  if (!quotes) {
+  if (!quotes || quotes.size < 1) {
     return <></>;
   } else {
     return (

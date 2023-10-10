@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme, customStyles } from '../../config/theme.config';
 import { UpvoteDownvote } from '../../common/functions/voting';
 import { useEffect, useState } from 'react';
 import { isConstructorDeclaration } from 'typescript';
+import { Link, useNavigation } from 'expo-router';
 
 const CreateCardFromQuote = ({
   quote,
@@ -78,16 +79,28 @@ const CreateCardFromQuote = ({
         >
           {quote.quote}
         </Text>
+
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 35,
-              height: 35,
-              borderRadius: 50,
-              resizeMode: 'cover',
+          <Link
+            href={{
+              pathname: '/profile',
+              params: {
+                userId: quote.user.user_id,
+                firstName: quote.user.first_name,
+                lastName: quote.user.last_name,
+              },
             }}
-          />
+          >
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 35,
+                height: 35,
+                borderRadius: 50,
+                resizeMode: 'cover',
+              }}
+            />
+          </Link>
           <Text style={customStyles.caption}>
             {quote.user.first_name} {quote.user.last_name}
           </Text>

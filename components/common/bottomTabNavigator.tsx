@@ -55,6 +55,7 @@ const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Profile</Text> : <Text></Text>;
           },
+          header: () => <Header />,
         }}
       >
         {() => <ProfileScreen />}
@@ -65,6 +66,7 @@ const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Settings</Text> : <Text></Text>;
           },
+          header: () => <Header />,
         }}
       >
         {() => <SettingsScreen />}

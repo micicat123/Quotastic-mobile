@@ -10,26 +10,16 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
+import { checkForUser } from '../../common/functions/user';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem('userId')
-      .then((user) => {
-        if (user) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      })
-      .catch((error) => {
-        console.error('Error checking user:', error);
-        setIsLoggedIn(false);
-      });
+    checkForUser(setIsLoggedIn);
   }, []);
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <SafeAreaView>
         <View style={styles.container}>

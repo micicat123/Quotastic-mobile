@@ -1,3 +1,4 @@
+import { number } from 'yup';
 import customAxios from '../../config/axios.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,6 +14,38 @@ export class GetUserStore {
   getUserVotes = () => {
     try {
       return getUserVotes();
+    } catch (e) {
+      return null;
+    }
+  };
+
+  getUserStatistics = (userId: number) => {
+    try {
+      return getUserStatistics(userId);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  getUserMostLikedQuotes = (page: number, userId: number) => {
+    try {
+      return getUserMostLikedQuotes(page, userId);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  getUserLikes = (page: number, userId: number) => {
+    try {
+      return getUserLikes(page, userId);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  getUserQuotes = (page: number, userId: number) => {
+    try {
+      return getUserQuotes(page, userId);
     } catch (e) {
       return null;
     }
@@ -57,4 +90,30 @@ const getUserVotes = async () => {
   } else {
     return null;
   }
+};
+
+const getUserStatistics = async (userId: number) => {
+  const response = await customAxios.get(`user/statistics/${Number(userId)}`);
+  return response.data;
+};
+
+const getUserMostLikedQuotes = async (page: number, userId: number) => {
+  const response = await customAxios.get(
+    `user/most-liked-quotes/${page}/${Number(userId)}`
+  );
+  return response;
+};
+
+const getUserLikes = async (page: number, userId: number) => {
+  const response = await customAxios.get(
+    `user/quotes-liked/${page}/${Number(userId)}`
+  );
+  return response;
+};
+
+const getUserQuotes = async (page: number, userId: number) => {
+  const response = await customAxios.get(
+    `user/quotes/${page}/${Number(userId)}`
+  );
+  return response;
 };

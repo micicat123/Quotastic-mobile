@@ -13,26 +13,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link } from 'expo-router';
 import RandomQuote from '../../components/home_page/randomQuote';
 import MostRecentQuotes from '../../components/home_page/mostRecentQuotes';
+import { checkForUser } from '../../common/functions/user';
 
 export default function HomeScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const fetchAsyncStorageValues = async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
-        if (userId) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error('Error reading AsyncStorage:', error);
-        setIsLoggedIn(false);
-      }
-    };
-
-    fetchAsyncStorageValues();
+    checkForUser(setIsLoggedIn);
   }, []);
 
   if (isLoggedIn) {
