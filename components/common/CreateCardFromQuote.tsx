@@ -5,6 +5,7 @@ import { UpvoteDownvote } from '../../common/functions/voting';
 import { useEffect, useState } from 'react';
 import { isConstructorDeclaration } from 'typescript';
 import { Link, useNavigation } from 'expo-router';
+import { isQuoteCreatedByCurrentUser } from '../../common/functions/user';
 
 const CreateCardFromQuote = ({
   quote,
@@ -17,10 +18,16 @@ const CreateCardFromQuote = ({
   isLoggedIn,
 }) => {
   const [stateVote, setStateVote] = useState(vote);
+  const [userOwnsQuote, setUserOwnsQuote] = useState(false);
 
   useEffect(() => {
     setStateVote(vote);
   }, [vote]);
+
+  const checkForOwnership = async () => {
+    const fetchedOwnership = await isQuoteCreatedByCurrentUser(quote);
+    setUserOwnsQuote(fetchedOwnership);
+  };
 
   return (
     <View style={styles.card}>
@@ -29,6 +36,7 @@ const CreateCardFromQuote = ({
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          flex: 2,
         }}
       >
         <Icon
@@ -73,22 +81,27 @@ const CreateCardFromQuote = ({
           }}
         />
       </View>
-      <View style={{ justifyContent: 'space-between' }}>
-        <Text
-          style={[customStyles.h5, { paddingRight: 50, paddingBottom: 21 }]}
-        >
+      <View style={{ justifyContent: 'space-between', flex: 10 }}>
+        <Text style={[customStyles.h5, { paddingBottom: 21 }]}>
           {quote.quote}
         </Text>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-          <Link
-            href={{
-              pathname: '/profile',
-              params: {
-                userId: quote.user.user_id,
-                firstName: quote.user.first_name,
-                lastName: quote.user.last_name,
-              },
+        <Link
+          href={{
+            pathname: '/profile',
+            params: {
+              userId: quote.user.user_id,
+              firstName: quote.user.first_name,
+              lastName: quote.user.last_name,
+            },
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              gap: 10,
             }}
           >
             <Image
@@ -100,12 +113,40 @@ const CreateCardFromQuote = ({
                 resizeMode: 'cover',
               }}
             />
-          </Link>
-          <Text style={customStyles.caption}>
-            {quote.user.first_name} {quote.user.last_name}
-          </Text>
-        </View>
+
+            <Text style={customStyles.caption}>
+              {quote.user.first_name} {quote.user.last_name}
+            </Text>
+          </View>
+        </Link>
       </View>
+      {userOwnsQuote && (
+        <View
+          style={{
+            flex: 2,
+            gap: 22.5,
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+          }}
+        >
+          <Icon
+            name={'settings-outline'}
+            size={25}
+            color={Theme.lightColors.primary}
+            onPress={() => {
+              console.log('edit quote');
+            }}
+          />
+          <Icon
+            name={'close'}
+            size={30}
+            color={Theme.lightColors.primary}
+            onPress={() => {
+              console.log('delete quote');
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };

@@ -25,7 +25,6 @@ export default function ProfileScreen() {
       setImageAndName(route.params.userId);
     } else {
       setId();
-      setImageAndName(userId);
     }
 
     checkForUser(setIsLoggedIn);
@@ -34,6 +33,7 @@ export default function ProfileScreen() {
   const setId = async () => {
     const fetchedUserId = await AsyncStorage.getItem('userId');
     setUserId(fetchedUserId);
+    setImageAndName(fetchedUserId);
   };
 
   const setImageAndName = async (id: any) => {
