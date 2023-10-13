@@ -66,6 +66,12 @@ const customStyles: any = {
     backgroundColor: Theme.lightColors.primary,
     padding: 10,
   },
+  outlinedButton: {
+    borderRadius: 32,
+    padding: 10,
+    borderColor: Theme.lightColors.primary,
+    borderWidth: 2,
+  },
   buttonText: {
     color: 'white',
     fontSize: 16,
