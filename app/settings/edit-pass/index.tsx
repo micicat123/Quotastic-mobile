@@ -36,7 +36,7 @@ export default function ChangePasswordSettings() {
           Profile <Text style={customStyles.h4}>Settings</Text>
         </Text>
         <Text style={[customStyles.body, { marginTop: 16, marginBottom: 40 }]}>
-          Change your profile settings
+          Change your password
         </Text>
 
         <Formik
@@ -145,9 +145,3 @@ export default function ChangePasswordSettings() {
     </>
   );
 }
-
-const infoSettingsStyles: any = {
-  profileSettings: {
-    backgroundColor: Theme.lightColors.primary,
-  },
-};
