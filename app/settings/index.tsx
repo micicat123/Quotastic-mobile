@@ -1,8 +1,17 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Theme, customStyles } from '../../config/theme.config';
 import { Link } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SettingsScreen() {
+  const logout = async () => {
+    await AsyncStorage.removeItem('jwt');
+    await AsyncStorage.removeItem('firstName');
+    await AsyncStorage.removeItem('lastName');
+    await AsyncStorage.removeItem('userId');
+    await AsyncStorage.removeItem('email');
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, marginLeft: 30, marginRight: 30 }}
@@ -43,16 +52,16 @@ export default function SettingsScreen() {
               customStyles.outlinedButton,
               { width: '50%', marginTop: 50, flex: 1 },
             ]}
+            onPress={logout}
           >
-            <Link
-              href='/'
+            <Text
               style={[
                 customStyles.buttonText,
                 { color: Theme.lightColors.primary },
               ]}
             >
-              <Text>Logout</Text>
-            </Link>
+              Logout
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
