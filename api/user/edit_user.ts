@@ -53,11 +53,11 @@ const updateUserPassword = async (
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
     await customAxios.put(
-      `/user/update-pass`,
+      `/user/update-password`,
       {
         old_password: oldPassword,
         password: newPassword,
-        passworConfirm: newPasswordConfirm,
+        passwordConfirm: newPasswordConfirm,
       },
       {
         headers: {

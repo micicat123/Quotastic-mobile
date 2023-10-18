@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { object, ref, string } from 'yup';
 
 const editInfoSchema = object().shape({
   firstName: string()
@@ -20,4 +20,24 @@ interface editInfoValues {
   email: string;
 }
 
-export { editInfoSchema, editInfoValues };
+const editPassSchema = object().shape({
+  oldPassword: string(),
+  newPassword: string()
+    .max(25, 'Password needs to be shorter than 25 characters')
+    .required('Enter a password.')
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/,
+      'Please create a stronger password'
+    ),
+  newPasswordConfirm: string()
+    .required('Please enter a password again.')
+    .oneOf([ref('newPassword')], 'Passwords do not match'),
+});
+
+interface editPassValues {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
+export { editInfoSchema, editInfoValues, editPassSchema, editPassValues };

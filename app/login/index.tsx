@@ -127,6 +127,24 @@ export default function LoginScreen() {
                 </View>
               )}
             </Formik>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingHorizontal: 10,
+                marginTop: 16,
+              }}
+            >
+              <Text style={customStyles.body}>Don't have an account</Text>
+              <Text
+                style={[
+                  customStyles.body,
+                  { color: Theme.lightColors.primary },
+                ]}
+              >
+                Sign up
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>
