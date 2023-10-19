@@ -58,7 +58,6 @@ export default function ChangePasswordSettings() {
             } catch (error) {
               if (error.response.data.message) {
                 setErrorMessage(error.response.data.message);
-                console.log('didnt update password');
               } else {
                 console.log(error);
               }

@@ -57,7 +57,7 @@ const updateUserPassword = async (
       {
         old_password: oldPassword,
         password: newPassword,
-        passwordConfirm: newPasswordConfirm,
+        password_confirm: newPasswordConfirm,
       },
       {
         headers: {

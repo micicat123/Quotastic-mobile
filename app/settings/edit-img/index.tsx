@@ -13,9 +13,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UpdateUserStore } from '../../../api/user/edit_user';
 import { GetUserStore } from '../../../api/user/get_user';
 import ImageSelect from '../../../components/common/imagePicker';
+import { LoginRegisterStore } from '../../../api/user/login_register';
 
 export default function ChangeInfoSettings() {
   const [file, setFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [email, setEmail] = useState(null);
+  const mimeType = {
+    jpg: 'image/jpeg',
+    peg: 'image/jpeg',
+    png: 'image/png',
+  };
 
   useEffect(() => {
     getUsersPicture();
@@ -24,11 +32,35 @@ export default function ChangeInfoSettings() {
   const getUsersPicture = async () => {
     const getUserStore = new GetUserStore();
     const userId = await AsyncStorage.getItem('userId');
+    const fetchedEmail = await AsyncStorage.getItem('email');
+    setEmail(fetchedEmail);
     const picture = await getUserStore.getUserPicture(Number(userId));
     setFile(picture);
   };
 
-  const updateImage = async () => {};
+  const updateImage = async () => {
+    if (file) {
+      try {
+        setErrorMessage('');
+        const formData: any = new FormData();
+        const fileExtension = file.slice(-3).toLowerCase();
+        const fileType = mimeType[fileExtension] || 'application/octet-stream';
+        formData.append('image', {
+          uri: file,
+          type: fileType,
+          name: 'image.jpg',
+        });
+
+        const loginRegisterStore = new LoginRegisterStore();
+        await loginRegisterStore.postUserPicture(formData, email);
+        router.replace('/');
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage('You need to upload an image file.');
+    }
+  };
 
   return (
     <>
@@ -48,16 +80,35 @@ export default function ChangeInfoSettings() {
         >
           Profile <Text style={customStyles.h4}>Settings</Text>
         </Text>
-        <Text style={[customStyles.body, { marginTop: 16, marginBottom: 40 }]}>
+        <Text style={[customStyles.body, { marginTop: 16, marginBottom: 60 }]}>
           Change your profile photo
         </Text>
 
         <ImageSelect image={file} setImage={setFile} />
+        <View style={{ alignItems: 'center', marginBottom: 40 }}>
+          {errorMessage ? (
+            <Text
+              style={[
+                customStyles.body,
+                { fontSize: 14, textAlign: 'center', color: 'red' },
+              ]}
+            >
+              {errorMessage}
+            </Text>
+          ) : (
+            <Text
+              style={[customStyles.body, { fontSize: 12, textAlign: 'center' }]}
+            >
+              To update your profile image, simply click on the current image.
+            </Text>
+          )}
+        </View>
+
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
           <TouchableOpacity
             style={[customStyles.filledButton, { width: '40%' }]}
             onPress={() => {
-              console.log('upload image');
+              updateImage();
             }}
           >
             <Text style={[customStyles.buttonText]}>Submit</Text>
