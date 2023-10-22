@@ -11,9 +11,11 @@ import { Theme } from '../../config/theme.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { checkForUser } from '../../common/functions/user';
+import AddQuote from '../popups/addQuote';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [addQuoteVisible, setAddQuoteVisible] = useState(false);
 
   useEffect(() => {
     checkForUser(setIsLoggedIn);
@@ -39,7 +41,7 @@ const Header = () => {
             style={styles.logo}
           />
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={() => console.log('pressed')}>
+            <TouchableOpacity onPress={() => setAddQuoteVisible(true)}>
               <Icon
                 name={'add-circle-outline'}
                 size={40}
@@ -48,6 +50,10 @@ const Header = () => {
             </TouchableOpacity>
           </View>
         </View>
+        <AddQuote
+          modalVisible={addQuoteVisible}
+          setModalVisible={setAddQuoteVisible}
+        />
       </SafeAreaView>
     );
   }
