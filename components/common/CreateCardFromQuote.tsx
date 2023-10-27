@@ -22,6 +22,7 @@ const CreateCardFromQuote = ({
 
   useEffect(() => {
     setStateVote(vote);
+    checkForOwnership();
   }, [vote]);
 
   const checkForOwnership = async () => {

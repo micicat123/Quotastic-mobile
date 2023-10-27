@@ -96,7 +96,7 @@ const UserLikes = ({ userId }) => {
                 fetchQuotes();
               }}
             >
-              <Text style={[customStyles.buttonText]}>Sign up to see more</Text>
+              <Text style={[customStyles.buttonText]}>Load more</Text>
             </TouchableOpacity>
           ) : !isLastPage ? (
             <TouchableOpacity
