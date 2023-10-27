@@ -6,4 +6,11 @@ interface LoggedInProps {
   setIsLoggedIn: (value: boolean) => void;
 }
 
-export default LoggedInProps;
+interface EditQuoteProps {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  quoteId: number;
+  initialQuote: string;
+}
+
+export { LoggedInProps, EditQuoteProps };

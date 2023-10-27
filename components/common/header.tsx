@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import LoggedInProps from '../../common/interface';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
