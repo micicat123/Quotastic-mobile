@@ -13,9 +13,11 @@ import { Input } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UpdateUserStore } from '../../../api/user/edit_user';
+import UserSettingsChanged from '../../../components/popups/userSettingsChanged';
 
 export default function ChangePasswordSettings() {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
@@ -54,7 +56,7 @@ export default function ChangePasswordSettings() {
                 values.newPassword,
                 values.newPasswordConfirm
               );
-              router.replace('/');
+              setModalVisible(true);
             } catch (error) {
               if (error.response.data.message) {
                 setErrorMessage(error.response.data.message);
@@ -141,6 +143,10 @@ export default function ChangePasswordSettings() {
           )}
         </Formik>
       </ScrollView>
+      <UserSettingsChanged
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </>
   );
 }

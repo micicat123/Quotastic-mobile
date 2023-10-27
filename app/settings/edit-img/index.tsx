@@ -14,11 +14,13 @@ import { UpdateUserStore } from '../../../api/user/edit_user';
 import { GetUserStore } from '../../../api/user/get_user';
 import ImageSelect from '../../../components/common/imagePicker';
 import { LoginRegisterStore } from '../../../api/user/login_register';
+import UserSettingsChanged from '../../../components/popups/userSettingsChanged';
 
 export default function ChangeInfoSettings() {
   const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [email, setEmail] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const mimeType = {
     jpg: 'image/jpeg',
     peg: 'image/jpeg',
@@ -53,7 +55,7 @@ export default function ChangeInfoSettings() {
 
         const loginRegisterStore = new LoginRegisterStore();
         await loginRegisterStore.postUserPicture(formData, email);
-        router.replace('/');
+        setModalVisible(true);
       } catch (error) {
         console.error(error);
       }
@@ -124,6 +126,10 @@ export default function ChangeInfoSettings() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <UserSettingsChanged
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </>
   );
 }

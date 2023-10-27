@@ -6,16 +6,17 @@ import {
   editInfoSchema,
   editInfoValues,
 } from '../../../assets/schemas/edit-user';
-import { router } from 'expo-router';
 import { Input } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UpdateUserStore } from '../../../api/user/edit_user';
+import UserSettingsChanged from '../../../components/popups/userSettingsChanged';
 
 export default function ChangeInfoSettings() {
   const [email, setEmail] = useState<string>(null);
   const [firstName, setFirstName] = useState<string>(null);
   const [lastName, setLastName] = useState<string>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchAsyncUserValues();
@@ -75,7 +76,7 @@ export default function ChangeInfoSettings() {
                 await AsyncStorage.setItem('firstName', values.firstName);
                 await AsyncStorage.setItem('lastName', values.lastName);
                 await AsyncStorage.setItem('email', values.email);
-                router.replace('/');
+                setModalVisible(true);
               } catch (error) {
                 console.error(error);
               }
@@ -164,6 +165,10 @@ export default function ChangeInfoSettings() {
             )}
           </Formik>
         </ScrollView>
+        <UserSettingsChanged
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
       </>
     );
   }
