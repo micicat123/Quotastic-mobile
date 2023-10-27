@@ -17,7 +17,7 @@ import {
 import { Input } from '@rneui/base';
 import { ManageQuoteStore } from '../../api/quotes/manage_quote';
 import { EditQuoteProps } from '../../common/interface';
-import EditQuoteConfirmation from './editQuoteConfirmation';
+import EditQuoteConfirmation from './quoteConfirmation';
 
 const EditQuote: React.FC<EditQuoteProps> = ({
   modalVisible,
@@ -135,6 +135,7 @@ const EditQuote: React.FC<EditQuoteProps> = ({
       <EditQuoteConfirmation
         setModalVisible={setConfirmPopupVisible}
         modalVisible={confirmPopupVisible}
+        edit={true}
       />
     </>
   );

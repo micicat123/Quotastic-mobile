@@ -7,6 +7,7 @@ import { isConstructorDeclaration } from 'typescript';
 import { Link, useNavigation } from 'expo-router';
 import { isQuoteCreatedByCurrentUser } from '../../common/functions/user';
 import EditQuote from '../popups/editQuote';
+import DeleteQuote from '../popups/deleteQuote';
 
 const CreateCardFromQuote = ({
   quote,
@@ -129,6 +130,11 @@ const CreateCardFromQuote = ({
             modalVisible={editQuoteVisible}
             quoteId={quote.quote_id}
             initialQuote={quote.quote}
+          />
+          <DeleteQuote
+            setModalVisible={setDeleteQuoteVisible}
+            modalVisible={deleteQuoteVisible}
+            quoteId={quote.quote_id}
           />
         </View>
         {userOwnsQuote && (
