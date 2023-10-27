@@ -43,7 +43,7 @@ const EditQuoteConfirmation = ({ modalVisible, setModalVisible, edit }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    top: '45%',
+    top: '40%',
     left: '25%',
     transform: [{ translateX: -50 }, { translateY: -50 }],
     width: 320,

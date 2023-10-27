@@ -51,7 +51,7 @@ const EditQuote: React.FC<EditQuoteProps> = ({
               paddingLeft: 32,
               paddingRight: 38,
               width: '80%',
-              top: '-2%',
+              top: '-21%',
               marginLeft: 'auto',
               marginRight: 'auto',
             }}
@@ -144,7 +144,7 @@ const EditQuote: React.FC<EditQuoteProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    top: '50%',
+    top: '30%',
     left: '25%',
     transform: [{ translateX: -50 }, { translateY: -50 }],
     width: 320,

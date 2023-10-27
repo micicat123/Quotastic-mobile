@@ -1,13 +1,12 @@
 import {
   View,
   StyleSheet,
-  Alert,
   Modal,
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Formik } from 'formik';
 import { router } from 'expo-router';
 import { Theme, customStyles } from '../../config/theme.config';
@@ -22,15 +21,7 @@ const AddQuote = ({ modalVisible, setModalVisible }) => {
   useEffect(() => {}, []);
 
   return (
-    <Modal
-      animationType='slide'
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-        setModalVisible(!modalVisible);
-      }}
-    >
+    <Modal animationType='slide' transparent={true} visible={modalVisible}>
       <KeyboardAvoidingView behavior='padding'>
         <View style={styles.container}>
           <Text style={customStyles.h4}>
@@ -93,7 +84,7 @@ const AddQuote = ({ modalVisible, setModalVisible }) => {
                     errors.quote && touched.quote ? errors.quote : null
                   }
                   textAlignVertical='top'
-                  maxLength={119}
+                  maxLength={115}
                 />
 
                 <View
