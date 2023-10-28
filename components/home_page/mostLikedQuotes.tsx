@@ -8,6 +8,7 @@ import { GetUserStore } from '../../api/user/get_user';
 import { getVote, getVotes } from '../../common/functions/voting';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { checkForUser } from '../../common/functions/user';
+import { router } from 'expo-router';
 
 const MostLikedQuotes = () => {
   const [quotes, setQuotes] = useState<Set<Quote>>(new Set());
@@ -104,8 +105,7 @@ const MostLikedQuotes = () => {
             <TouchableOpacity
               style={[customStyles.filledButton, { width: 165 }]}
               onPress={() => {
-                setPage(page + 1);
-                fetchQuotes();
+                router.replace('/register');
               }}
             >
               <Text style={[customStyles.buttonText]}>Sign up to see more</Text>

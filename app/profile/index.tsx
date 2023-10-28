@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { checkForUser } from '../../common/functions/user';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +10,7 @@ import UsersMostLikedQuotes from '../../components/profile_page/usersMostLikedQu
 import UserLikes from '../../components/profile_page/usersLikes';
 import UserQuotes from '../../components/profile_page/usersQuotes';
 import Header from '../../components/common/header';
+import { Link } from 'expo-router';
 
 export default function ProfileScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,6 +20,8 @@ export default function ProfileScreen() {
   const route: any = useRoute();
 
   useEffect(() => {
+    checkForUser(setIsLoggedIn);
+
     if (route.params && route.params.userId) {
       setUserId(route.params.userId);
       setName(route.params.firstName + ' ' + route.params.lastName);
@@ -26,14 +29,14 @@ export default function ProfileScreen() {
     } else {
       setId();
     }
-
-    checkForUser(setIsLoggedIn);
   }, [route.params]);
 
   const setId = async () => {
     const fetchedUserId = await AsyncStorage.getItem('userId');
-    setUserId(fetchedUserId);
-    setImageAndName(fetchedUserId);
+    if (fetchedUserId) {
+      setUserId(fetchedUserId);
+      setImageAndName(fetchedUserId);
+    }
   };
 
   const setImageAndName = async (id: any) => {
@@ -47,14 +50,30 @@ export default function ProfileScreen() {
     }
   };
 
-  if (!userId || !image) {
-    return <></>;
-  } else if (!isLoggedIn) {
+  if (!isLoggedIn && !route.params) {
     return (
-      <View>
-        <Text>You need to log in to see your profile</Text>
+      <View style={{ padding: 50, paddingTop: 80 }}>
+        <Text style={[customStyles.h4, { marginBottom: 50 }]}>
+          You need to log in to see your{' '}
+          <Text style={{ color: Theme.lightColors.primary }}>profile.</Text>
+        </Text>
+
+        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+          <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
+            <Link href='/register' style={[customStyles.buttonText]}>
+              <Text>Sign up</Text>
+            </Link>
+          </TouchableOpacity>
+          <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
+            <Link href='/login' style={[customStyles.buttonText]}>
+              <Text>Log in</Text>
+            </Link>
+          </TouchableOpacity>
+        </View>
       </View>
     );
+  } else if (!userId || !image) {
+    return <></>;
   } else {
     return (
       <>

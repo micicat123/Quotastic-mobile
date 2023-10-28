@@ -46,7 +46,7 @@ export default function HomeScreen() {
             quotes, and proverbs. Sign up and express yourself.
           </Text>
           <TouchableOpacity style={[customStyles.filledButton, { width: 137 }]}>
-            <Link href='/login' style={[customStyles.buttonText]}>
+            <Link href='/register' style={[customStyles.buttonText]}>
               <Text>Sign up</Text>
             </Link>
           </TouchableOpacity>
