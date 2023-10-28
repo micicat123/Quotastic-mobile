@@ -4,6 +4,7 @@ import { Link } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { checkForUser } from '../../common/functions/user';
+import NotLogegdInContainer from '../../components/common/notLoggedInContainer';
 
 export default function SettingsScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,7 +22,7 @@ export default function SettingsScreen() {
   };
 
   if (!isLoggedIn) {
-    return <></>;
+    return <NotLogegdInContainer profile={false} />;
   } else {
     return (
       <ScrollView
