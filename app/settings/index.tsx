@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Theme, customStyles } from '../../config/theme.config';
-import { Link, router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { checkForUser, logout } from '../../common/functions/user';
 import NotLogegdInContainer from '../../components/common/notLoggedInContainer';

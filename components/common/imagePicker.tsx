@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

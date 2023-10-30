@@ -1,16 +1,8 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Theme, customStyles } from '../../../config/theme.config';
 import Header from '../../../components/common/header';
-import { Formik } from 'formik';
-import {
-  editInfoSchema,
-  editInfoValues,
-} from '../../../assets/schemas/edit-user';
-import { router } from 'expo-router';
-import { Input } from '@rneui/base';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UpdateUserStore } from '../../../api/user/edit_user';
 import { GetUserStore } from '../../../api/user/get_user';
 import ImageSelect from '../../../components/common/imagePicker';
 import { LoginRegisterStore } from '../../../api/user/login_register';

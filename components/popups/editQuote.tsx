@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Formik } from 'formik';
 import { Theme, customStyles } from '../../config/theme.config';
 import {

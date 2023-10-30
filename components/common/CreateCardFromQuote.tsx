@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme, customStyles } from '../../config/theme.config';
 import { UpvoteDownvote } from '../../common/functions/voting';
 import { useEffect, useState } from 'react';
-import { isConstructorDeclaration } from 'typescript';
-import { Link, useNavigation } from 'expo-router';
+import { Link } from 'expo-router';
 import { isQuoteCreatedByCurrentUser } from '../../common/functions/user';
 import EditQuote from '../popups/editQuote';
 import DeleteQuote from '../popups/deleteQuote';

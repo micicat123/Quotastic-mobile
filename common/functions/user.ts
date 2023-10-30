@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import { Quote } from '../../models/quote';
 
 const checkForUser = async (setIsLoggedIn: Function) => {

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Quote } from '../../models/quote';
 import CreateCardFromQuote from '../common/createCardFromQuote';

@@ -1,4 +1,3 @@
-import { number } from 'yup';
 import customAxios from '../../config/axios.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../../common/functions/user';

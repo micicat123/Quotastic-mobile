@@ -1,11 +1,10 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Quote } from '../../models/quote';
 import { GetQuotesStore } from '../../api/quotes/get_quotes';
 import CreateCardFromQuote from '../common/createCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getVote, getVotes } from '../../common/functions/voting';
 
 const RandomQuote = () => {

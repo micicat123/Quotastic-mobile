@@ -5,7 +5,7 @@ import ProfileScreen from '../../app/profile';
 import SettingsScreen from '../../app/settings';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import Header from './header';
 
 const Tab = createBottomTabNavigator();

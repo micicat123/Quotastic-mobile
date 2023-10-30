@@ -1,6 +1,5 @@
 import { View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
-
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 const UserStatistics = ({ userId }) => {

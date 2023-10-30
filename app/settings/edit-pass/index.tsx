@@ -3,15 +3,11 @@ import { Theme, customStyles } from '../../../config/theme.config';
 import Header from '../../../components/common/header';
 import { Formik } from 'formik';
 import {
-  editInfoSchema,
-  editInfoValues,
   editPassSchema,
   editPassValues,
 } from '../../../assets/schemas/edit-user';
-import { router } from 'expo-router';
 import { Input } from '@rneui/base';
-import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
 import { UpdateUserStore } from '../../../api/user/edit_user';
 import UserSettingsChanged from '../../../components/popups/userSettingsChanged';
 
