@@ -6,7 +6,7 @@ import { Theme, customStyles } from '../../config/theme.config';
 import ImageSelect from '../../components/common/imagePicker';
 import Header from '../../components/common/header';
 import { LoginRegisterStore } from '../../api/user/login_register';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { registerSchema, registerValues } from '../../assets/schemas/register';
 
 export default function LoginScreen() {
@@ -21,7 +21,7 @@ export default function LoginScreen() {
 
   return (
     <>
-      <Header />
+      <Header back={true} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={{ marginLeft: 30, marginRight: 30 }}>
           <View>
@@ -223,14 +223,16 @@ export default function LoginScreen() {
               }}
             >
               <Text style={customStyles.body}>Already have an account</Text>
-              <Text
-                style={[
-                  customStyles.body,
-                  { color: Theme.lightColors.primary },
-                ]}
-              >
-                Sign in
-              </Text>
+              <Link href={'/login'}>
+                <Text
+                  style={[
+                    customStyles.body,
+                    { color: Theme.lightColors.primary },
+                  ]}
+                >
+                  Sign in
+                </Text>
+              </Link>
             </View>
           </View>
         </View>

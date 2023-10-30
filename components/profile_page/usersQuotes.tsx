@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Quote } from '../../models/quote';
-import CreateCardFromQuote from '../common/CreateCardFromQuote';
+import CreateCardFromQuote from '../common/createCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 import { getVote, getVotes } from '../../common/functions/voting';

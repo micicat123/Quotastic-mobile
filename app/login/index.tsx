@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { loginSchema, loginValues } from '../../assets/schemas/login';
 import { LoginRegisterStore } from '../../api/user/login_register';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { useState } from 'react';
 import { Input } from '@rneui/base';
 import { Theme, customStyles } from '../../config/theme.config';
@@ -14,7 +14,7 @@ export default function LoginScreen() {
 
   return (
     <>
-      <Header />
+      <Header back={true} />
       <ScrollView contentContainerStyle={{ flexGrow: 1, marginTop: '20%' }}>
         <View style={{ marginLeft: 30, marginRight: 30 }}>
           <Text style={[customStyles.h4, { textAlign: 'center' }]}>
@@ -136,14 +136,16 @@ export default function LoginScreen() {
               }}
             >
               <Text style={customStyles.body}>Don't have an account</Text>
-              <Text
-                style={[
-                  customStyles.body,
-                  { color: Theme.lightColors.primary },
-                ]}
-              >
-                Sign up
-              </Text>
+              <Link href={'/register'}>
+                <Text
+                  style={[
+                    customStyles.body,
+                    { color: Theme.lightColors.primary },
+                  ]}
+                >
+                  Sign up
+                </Text>
+              </Link>
             </View>
           </View>
         </View>

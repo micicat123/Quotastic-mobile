@@ -44,7 +44,7 @@ const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Home</Text> : <Text></Text>;
           },
-          header: () => <Header />,
+          header: () => <Header back={false} />,
         }}
       >
         {() => <HomeScreen />}
@@ -55,7 +55,7 @@ const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Profile</Text> : <Text></Text>;
           },
-          header: () => <Header />,
+          header: () => <Header back={false} />,
         }}
       >
         {() => <ProfileScreen />}
@@ -66,7 +66,7 @@ const BottomTabNavigator = () => {
           tabBarLabel: ({ focused }) => {
             return focused ? <Text>Settings</Text> : <Text></Text>;
           },
-          header: () => <Header />,
+          header: () => <Header back={false} />,
         }}
       >
         {() => <SettingsScreen />}

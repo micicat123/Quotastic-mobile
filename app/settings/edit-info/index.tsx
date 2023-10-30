@@ -36,7 +36,7 @@ export default function ChangeInfoSettings() {
   } else {
     return (
       <>
-        <Header />
+        <Header back={true} />
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,

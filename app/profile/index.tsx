@@ -57,7 +57,7 @@ export default function ProfileScreen() {
   } else {
     return (
       <>
-        {route.params ? <Header /> : null}
+        {route.params ? <Header back={true} /> : null}
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={profileStyles.hero}>
             <View

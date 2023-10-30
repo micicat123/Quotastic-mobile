@@ -21,7 +21,7 @@ export default function ChangePasswordSettings() {
 
   return (
     <>
-      <Header />
+      <Header back={true} />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

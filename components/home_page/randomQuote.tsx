@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Quote } from '../../models/quote';
 import { GetQuotesStore } from '../../api/quotes/get_quotes';
-import CreateCardFromQuote from '../common/CreateCardFromQuote';
+import CreateCardFromQuote from '../common/createCardFromQuote';
 import { Theme, customStyles } from '../../config/theme.config';
 import { GetUserStore } from '../../api/user/get_user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,14 +40,6 @@ const RandomQuote = () => {
     }
   };
 
-  const logout = async () => {
-    await AsyncStorage.removeItem('jwt');
-    await AsyncStorage.removeItem('firstName');
-    await AsyncStorage.removeItem('lastName');
-    await AsyncStorage.removeItem('userId');
-    await AsyncStorage.removeItem('email');
-  };
-
   if (quotes.size < 1) {
     return <></>;
   } else {
@@ -83,12 +75,6 @@ const RandomQuote = () => {
           userVotes={userVotes}
           setUserVotes={setUserVotes}
         />
-        <TouchableOpacity
-          style={[customStyles.filledButton, { width: 137 }]}
-          onPress={logout}
-        >
-          <Text>Logout</Text>
-        </TouchableOpacity>
       </View>
     );
   }

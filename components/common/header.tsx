@@ -4,15 +4,16 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Theme } from '../../config/theme.config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { checkForUser } from '../../common/functions/user';
 import AddQuote from '../popups/addQuote';
+import { router } from 'expo-router';
 
-const Header = () => {
+const Header = ({ back }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [addQuoteVisible, setAddQuoteVisible] = useState(false);
 
@@ -24,6 +25,17 @@ const Header = () => {
     return (
       <SafeAreaView>
         <View style={styles.container}>
+          {back && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Icon
+                  name={'arrow-back-circle-outline'}
+                  size={40}
+                  color={Theme.lightColors.primary}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
           <Image
             source={require('../../assets/images/logo.png')}
             style={styles.logoAlone}
@@ -35,10 +47,22 @@ const Header = () => {
     return (
       <SafeAreaView>
         <View style={styles.container}>
+          {back && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Icon
+                  name={'arrow-back-circle-outline'}
+                  size={40}
+                  color={Theme.lightColors.primary}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
           <Image
             source={require('../../assets/images/logo.png')}
             style={styles.logo}
           />
+
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={() => setAddQuoteVisible(true)}>
               <Icon
