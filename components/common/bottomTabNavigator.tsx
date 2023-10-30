@@ -14,6 +14,7 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarStyle: { height: 60, paddingTop: 5, paddingBottom: 5 },
         tabBarIcon: ({ focused, color }) => {
           let iconName;
 

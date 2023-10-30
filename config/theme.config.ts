@@ -22,43 +22,33 @@ const Theme = createTheme({
 
 const customStyles: any = {
   h1: {
+    fontFamily: 'Raleway_300Light',
     fontSize: 50,
-    fontWeight: '300',
-    color: Theme.lightColors.dark,
-  },
-  h2: {
-    fontSize: 61,
-    fontWeight: '300',
-    color: Theme.lightColors.dark,
-  },
-  h3: {
-    fontSize: 49,
-    fontWeight: '400',
     color: Theme.lightColors.dark,
   },
   h4: {
+    fontFamily: 'Raleway_400Regular',
     fontSize: 35,
-    fontWeight: '400',
     color: Theme.lightColors.dark,
   },
   h5: {
+    fontFamily: 'Raleway_400Regular',
     fontSize: 16,
-    fontWeight: '400',
     color: Theme.lightColors.dark,
   },
   caption: {
+    fontFamily: 'Raleway_400Regular',
     fontSize: 14,
-    fontWeight: '400',
     color: Theme.lightColors.dark,
   },
   body: {
+    fontFamily: 'Raleway_400Regular',
     fontSize: 16,
-    fontWeight: '400',
     color: Theme.lightColors.dark,
   },
   bodyBold: {
+    fontFamily: 'Raleway_700Bold',
     fontSize: 16,
-    fontWeight: '700',
     color: Theme.lightColors.dark,
   },
   filledButton: {
@@ -86,7 +76,7 @@ const customStyles: any = {
   },
   customLabel: {
     color: Theme.lightColors.dark,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     fontWeight: 'regular',
     marginBottom: 8,
   },
