@@ -133,8 +133,16 @@ const styles = StyleSheet.create({
     height: 458,
     padding: 32,
     borderRadius: 16,
-    elevation: 4,
     zIndex: 1,
+
+    elevation: 4,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
 });
 
