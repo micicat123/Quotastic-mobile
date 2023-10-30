@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import customAxios from '../../config/axios.config';
+import { logout } from '../../common/functions/user';
 
 export class GetQuotesStore {
   mostLikedQuotes = (page: number) => {
@@ -39,11 +40,15 @@ const mostLikedQuotes = async (page: number): Promise<any> => {
 const mostRecentQuotes = async (page: number) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    return await customAxios.get(`/quote/most-recent/${page}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      return await customAxios.get(`/quote/most-recent/${page}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }
@@ -52,11 +57,15 @@ const mostRecentQuotes = async (page: number) => {
 const randomQuote = async () => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    return await customAxios.get(`/quote/random`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      return await customAxios.get(`/quote/random`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }

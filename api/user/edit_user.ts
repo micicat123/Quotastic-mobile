@@ -1,4 +1,4 @@
-import { number } from 'yup';
+import { logout } from '../../common/functions/user';
 import customAxios from '../../config/axios.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -31,15 +31,19 @@ const updateUserInfo = async (
 ) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    await customAxios.put(
-      `/user/update-info`,
-      { first_name: firstName, last_name: lastName, email: email },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    try {
+      await customAxios.put(
+        `/user/update-info`,
+        { first_name: firstName, last_name: lastName, email: email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }
@@ -52,19 +56,23 @@ const updateUserPassword = async (
 ) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    await customAxios.put(
-      `/user/update-password`,
-      {
-        old_password: oldPassword,
-        password: newPassword,
-        password_confirm: newPasswordConfirm,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      await customAxios.put(
+        `/user/update-password`,
+        {
+          old_password: oldPassword,
+          password: newPassword,
+          password_confirm: newPasswordConfirm,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }

@@ -3,7 +3,7 @@ import { Theme, customStyles } from '../../config/theme.config';
 import { Link, router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
-import { checkForUser } from '../../common/functions/user';
+import { checkForUser, logout } from '../../common/functions/user';
 import NotLogegdInContainer from '../../components/common/notLoggedInContainer';
 
 export default function SettingsScreen() {
@@ -12,15 +12,6 @@ export default function SettingsScreen() {
   useEffect(() => {
     checkForUser(setIsLoggedIn);
   }, []);
-
-  const logout = async () => {
-    await AsyncStorage.removeItem('jwt');
-    await AsyncStorage.removeItem('firstName');
-    await AsyncStorage.removeItem('lastName');
-    await AsyncStorage.removeItem('userId');
-    await AsyncStorage.removeItem('email');
-    router.replace('/');
-  };
 
   if (!isLoggedIn) {
     return <NotLogegdInContainer profile={false} />;

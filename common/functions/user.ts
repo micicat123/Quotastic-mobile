@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { Quote } from '../../models/quote';
 
 const checkForUser = async (setIsLoggedIn: Function) => {
@@ -21,4 +21,13 @@ const isQuoteCreatedByCurrentUser = async (quote: Quote) => {
   }
 };
 
-export { checkForUser, isQuoteCreatedByCurrentUser };
+const logout = async () => {
+  await AsyncStorage.removeItem('jwt');
+  await AsyncStorage.removeItem('firstName');
+  await AsyncStorage.removeItem('lastName');
+  await AsyncStorage.removeItem('userId');
+  await AsyncStorage.removeItem('email');
+  router.replace('/');
+};
+
+export { checkForUser, isQuoteCreatedByCurrentUser, logout };

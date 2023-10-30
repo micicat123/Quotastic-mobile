@@ -1,6 +1,7 @@
 import { number } from 'yup';
 import customAxios from '../../config/axios.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logout } from '../../common/functions/user';
 
 export class GetUserStore {
   getUserPicture = (id: number) => {
@@ -78,15 +79,19 @@ const getUserVotes = async () => {
   const userId = await AsyncStorage.getItem('userId');
 
   if (token) {
-    const response = await customAxios.get(
-      `/quote/user-decisions/${Number(userId)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
+    try {
+      const response = await customAxios.get(
+        `/quote/user-decisions/${Number(userId)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }

@@ -1,6 +1,7 @@
 import { number } from 'yup';
 import customAxios from '../../config/axios.config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logout } from '../../common/functions/user';
 
 export class ManageQuoteStore {
   addQUote = (quote: string) => {
@@ -31,15 +32,19 @@ export class ManageQuoteStore {
 const addQuote = async (quote: string) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    await customAxios.post(
-      `/quote`,
-      { quote: quote },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    try {
+      await customAxios.post(
+        `/quote`,
+        { quote: quote },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }
@@ -48,15 +53,19 @@ const addQuote = async (quote: string) => {
 const editQuote = async (quote: string, quoteId: number) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    await customAxios.put(
-      `quote/${quoteId}`,
-      { quote: quote },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    try {
+      await customAxios.put(
+        `quote/${quoteId}`,
+        { quote: quote },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }
@@ -65,11 +74,15 @@ const editQuote = async (quote: string, quoteId: number) => {
 const deleteQuote = async (quoteId: number) => {
   const token = await AsyncStorage.getItem('jwt');
   if (token) {
-    await customAxios.delete(`quote/${quoteId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      await customAxios.delete(`quote/${quoteId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      logout();
+    }
   } else {
     return null;
   }
