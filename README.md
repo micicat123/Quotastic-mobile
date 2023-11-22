@@ -1,14 +1,9 @@
-# Expo Router Example
+# QUOTES
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+## Short description :
 
-## 🚀 How to use
+Application that will allow the user to register, write one paragraph of motivational quotes, review already registered users and their quotes, and upvote or downvote a quote. Users can also edit and delete only their own quotes and their info.
 
-```sh
-npx create-expo-app -e with-router
-```
+## Technologies:
 
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+Html, Css, JavaScript, Typescript, Node, React
